@@ -62,6 +62,18 @@ list(APPEND G2O_LIBS
   g2o_types_data g2o_types_sim3
 )
 
+#------------------------------------------
+#                    Octomap
+#------------------------------------------
+find_package(octomap)
+include_directories(${OCTOMAP_INCLUDE_DIRS})
+
+#------------------------------------------
+#                    Pangolin
+#------------------------------------------
+find_package(Pangolin REQUIRED)
+include_directories(${Pangolin_INCLUDE_DIRS})
+
 
 #---------------- Project -----------------
 include_directories(${PROJECT_SOURCE_DIR})
@@ -70,6 +82,7 @@ add_library(${PROJECT_NAME} SHARED
     Core/PinholeCamera.cpp
     Core/Feature.cpp
     Core/Frame.cpp
+    Core/Map.cpp
 
     Ransac/Ransac3D3D.cpp
     Ransac/GvRansac3D3D.cpp
@@ -98,6 +111,9 @@ add_library(${PROJECT_NAME} SHARED
     IO/DatasetMicrosoft.cpp
 
     Utils/Random.cpp
+
+    Viewer/Viewer.cpp
+    Viewer/DenseMapDrawer.cpp
 )
 
 target_link_libraries(${PROJECT_NAME}
@@ -110,6 +126,8 @@ target_link_libraries(${PROJECT_NAME}
     ${G2O_LIBS}
     ${CHOLMOD_LIBRARIES}
     ${CSPARSE_LIBRARY}
+    ${OCTOMAP_LIBRARIES}
+    ${Pangolin_LIBRARIES}
 )
 
 add_executable(main main.cpp)

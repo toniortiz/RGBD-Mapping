@@ -3,9 +3,10 @@
 
 #include "System/common.h"
 #include <mutex>
+#include <octomap/octomap.h>
 #include <opencv2/opencv.hpp>
-#include <vector>
 #include <pcl/registration/registration.h>
+#include <vector>
 
 class Frame {
 public:
@@ -30,6 +31,8 @@ public:
     void createPointCloud(int res);
     void computeNormals(double radius);
     void downsample(float leaf);
+    bool hasPointCloud();
+    void createOctoCloud(PointCloudColor::Ptr worldCloud);
 
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
@@ -77,6 +80,7 @@ public:
 
     PointCloudColor::Ptr _pointCloud;
     PointCloudColorNormal::Ptr _pointCloudNormals;
+    std::shared_ptr<octomap::Pointcloud> _octoCloud;
 
 private:
     // Camera pose.

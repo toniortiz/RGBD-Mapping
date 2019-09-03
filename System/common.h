@@ -49,6 +49,15 @@ typedef std::shared_ptr<Extractor> ExtractorPtr;
 class Feature;
 typedef std::shared_ptr<Feature> FeaturePtr;
 
+class Tracking;
+typedef std::shared_ptr<Tracking> TrackingPtr;
+
+class Map;
+typedef std::shared_ptr<Map> MapPtr;
+
+class DenseMapDrawer;
+typedef std::shared_ptr<DenseMapDrawer> DenseMapPtr;
+
 /*
  * [1] Henry et.al., RGB-D Mapping: Using Kinect-Style Depth Cameras for Dense 3D Modeling of Indoor Environments, 2012.
 */

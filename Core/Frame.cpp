@@ -141,6 +141,22 @@ void Frame::downsample(float leaf)
     voxel.filter(*_pointCloud);
 }
 
+bool Frame::hasPointCloud()
+{
+    return _pointCloud != nullptr;
+}
+
+void Frame::createOctoCloud(PointCloudColor::Ptr worldCloud)
+{
+    _octoCloud.reset(new octomap::Pointcloud());
+    _octoCloud->reserve(worldCloud->size());
+
+    for (PointCloudColor::const_iterator it = worldCloud->begin(); it != worldCloud->end(); it++) {
+        if (!isnan(it->z) || it->z <= 0)
+            _octoCloud->push_back(it->x, it->y, it->z);
+    }
+}
+
 void Frame::drawMatchedPoints()
 {
     if (_keys.empty())
